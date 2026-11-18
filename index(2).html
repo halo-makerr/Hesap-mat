@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Günlük hayat için ücretsiz ve kolay online hesaplama araçları. Yüzde, indirim, yaş, not ortalaması ve birim hesaplama.">
+<meta name="theme-color" content="#10243a">
+<title>HesapMat – Ücretsiz Online Hesaplama Araçları</title>
+<style>
+:root{--navy:#10243a;--blue:#2463eb;--ink:#172538;--muted:#64748b;--line:#e4eaf1;--bg:#f5f8fc;--white:#fff;--green:#087f5b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(125deg,#10243a,#1c4772);color:white;padding:24px 18px 34px}
+.top,.hero,.wrap{max-width:1050px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between}.brand{font-size:23px;font-weight:850;letter-spacing:-.8px}.brand span{color:#8db8ff}.tag{font-size:12px;color:#d5e4f6}.hero{padding-top:35px}.hero h1{font-size:clamp(28px,5vw,43px);line-height:1.12;margin:0 0 12px;letter-spacing:-1.2px}.hero p{margin:0;color:#d4e1ef;max-width:620px;line-height:1.6}.search{margin-top:22px;max-width:550px;display:flex;background:white;border-radius:12px;padding:5px;box-shadow:0 8px 25px #071a3033}.search input{border:0;outline:0;flex:1;min-width:0;padding:12px;font-size:15px}.search button{border:0;background:var(--blue);color:white;border-radius:9px;padding:0 17px;font-weight:700}
+.wrap{padding:25px 18px 55px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:8px 0 15px}.section-head h2{font-size:21px;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:white;border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:0 3px 12px #14243a08;min-width:0}.card h3{margin:0 0 5px;font-size:16px}.desc{font-size:12px;color:var(--muted);margin:0 0 14px;min-height:30px}.field{display:block;margin:10px 0}.field span{display:block;font-size:12px;color:#526176;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #d8e1ec;border-radius:9px;padding:11px 10px;font:inherit;font-size:14px;background:white;outline:none}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2463eb18}.action{width:100%;border:0;border-radius:9px;background:var(--navy);color:white;padding:11px;font-weight:700;font-size:14px;cursor:pointer;margin-top:5px}.action:hover{background:#1e4268}.result{display:none;margin-top:12px;background:#eff6ff;border:1px solid #d9e8ff;border-radius:9px;padding:11px;color:#173b70;font-size:14px;font-weight:700;line-height:1.45;overflow-wrap:anywhere}.result.show{display:block}.empty{display:none;text-align:center;color:var(--muted);padding:25px;background:white;border:1px dashed #cbd5e1;border-radius:12px}.live-status{font-size:12px;color:var(--muted);margin-top:8px}.rate-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.rate-pill{background:#f1f6fc;border:1px solid #e0eaf5;border-radius:9px;padding:9px;font-size:12px}.rate-pill b{display:block;font-size:14px;color:#173b70;margin-top:3px}.note{margin-top:24px;background:#edf3fa;border-radius:12px;padding:15px;color:#46566b;font-size:13px;line-height:1.6}.adslot{margin:22px 0;padding:14px;border:1px dashed #cbd5e1;border-radius:12px;text-align:center;color:#8491a2;font-size:12px;background:#fbfdff}.adslot strong{display:block;color:#64748b;margin-bottom:3px}footer{border-top:1px solid var(--line);padding:22px 18px;color:var(--muted);font-size:12px;text-align:center;background:white}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){.grid{grid-template-columns:1fr}.rate-list{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:27px}.card{padding:16px}.section-head{align-items:start;flex-direction:column}.tag{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><div class="brand">Hesap<span>Mat</span></div><div class="tag">Ücretsiz • Hızlı • Kolay</div></div>
+  <div class="hero">
+    <h1>İhtiyacın olan hesaplama,<br>tek bir yerde.</h1>
+    <p>Günlük hayat, okul ve alışveriş için pratik hesaplama araçlarını ücretsiz kullan.</p>
+    <div class="search"><input id="search" type="search" placeholder="Örneğin: yüzde hesaplama..." aria-label="Araçlarda ara"><button type="button" onclick="filterTools()">Ara</button></div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="section-head"><div><h2>Hesaplama araçları</h2><p>Bir araç seç, bilgileri gir ve sonucu hemen gör.</p></div></div>
+  <div class="grid" id="tools">
+    <section class="card" data-search="yüzde yüzde hesaplama oran">
+      <h3>Yüzde hesaplama</h3><p class="desc">Bir sayının belirli yüzdesini bul.</p>
+      <label class="field"><span>Sayı</span><input id="pctNum" type="number" placeholder="Örn. 500"></label>
+      <label class="field"><span>Yüzde (%)</span><input id="pctRate" type="number" placeholder="Örn. 20"></label>
+      <button class="action" onclick="calcPercent()">Hesapla</button><div class="result" id="pctOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="indirim indirimli fiyat alışveriş">
+      <h3>İndirim hesaplama</h3><p class="desc">İndirim sonrası ödeyeceğin fiyatı hesapla.</p>
+      <label class="field"><span>Ürün fiyatı (TL)</span><input id="discPrice" type="number" min="0" placeholder="Örn. 1200"></label>
+      <label class="field"><span>İndirim (%)</span><input id="discRate" type="number" min="0" max="100" placeholder="Örn. 25"></label>
+      <button class="action" onclick="calcDiscount()">Hesapla</button><div class="result" id="discOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="yaş doğum tarihi kaç yaşındayım">
+      <h3>Yaş hesaplama</h3><p class="desc">Doğum tarihine göre yaşını öğren.</p>
+      <label class="field"><span>Doğum tarihi</span><input id="birthDate" type="date"></label>
+      <button class="action" onclick="calcAge()">Yaşımı hesapla</button><div class="result" id="ageOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="not ortalama okul ders puan">
+      <h3>Not ortalaması</h3><p class="desc">Ders notlarının basit ortalamasını bul.</p>
+      <label class="field"><span>Notları virgülle ayırarak yaz</span><input id="grades" type="text" placeholder="Örn. 80, 90, 75"></label>
+      <button class="action" onclick="calcAverage()">Ortalama hesapla</button><div class="result" id="avgOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="kdv vergi fiyat dahil hariç">
+      <h3>KDV hesaplama</h3><p class="desc">KDV eklenmiş fiyatı ve KDV tutarını bul.</p>
+      <label class="field"><span>KDV hariç tutar (TL)</span><input id="vatPrice" type="number" min="0" placeholder="Örn. 1000"></label>
+      <label class="field"><span>KDV oranı (%)</span><select id="vatRate"><option value="20">%20</option><option value="10">%10</option><option value="1">%1</option></select></label>
+      <button class="action" onclick="calcVat()">Hesapla</button><div class="result" id="vatOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="birim dönüştürme kilometre metre santimetre">
+      <h3>Uzunluk dönüştürücü</h3><p class="desc">Kilometre, metre ve santimetre arasında dönüşüm yap.</p>
+      <label class="field"><span>Değer</span><input id="lenValue" type="number" placeholder="Örn. 2.5"></label>
+      <label class="field"><span>Başlangıç birimi</span><select id="lenFrom"><option value="km">Kilometre</option><option value="m">Metre</option><option value="cm">Santimetre</option></select></label>
+      <label class="field"><span>Hedef birim</span><select id="lenTo"><option value="m">Metre</option><option value="km">Kilometre</option><option value="cm">Santimetre</option></select></label>
+      <button class="action" onclick="convertLength()">Dönüştür</button><div class="result" id="lenOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="döviz çevirici dolar euro sterlin canlı kur">
+      <h3>Canlı döviz çevirici</h3><p class="desc">Güncel referans kurlarla para birimlerini dönüştür.</p>
+      <label class="field"><span>Tutar</span><input id="fxAmount" type="number" min="0" value="1"></label>
+      <label class="field"><span>Kaynak para birimi</span><select id="fxFrom"><option value="TRY">Türk lirası (TRY)</option><option value="USD">ABD doları (USD)</option><option value="EUR">Euro (EUR)</option><option value="GBP">İngiliz sterlini (GBP)</option><option value="CHF">İsviçre frangı (CHF)</option><option value="JPY">Japon yeni (JPY)</option><option value="CAD">Kanada doları (CAD)</option><option value="SAR">Suudi riyali (SAR)</option></select></label>
+      <label class="field"><span>Hedef para birimi</span><select id="fxTo"><option value="USD">ABD doları (USD)</option><option value="TRY">Türk lirası (TRY)</option><option value="EUR">Euro (EUR)</option><option value="GBP">İngiliz sterlini (GBP)</option><option value="CHF">İsviçre frangı (CHF)</option><option value="JPY">Japon yeni (JPY)</option><option value="CAD">Kanada doları (CAD)</option><option value="SAR">Suudi riyali (SAR)</option></select></label>
+      <button class="action" onclick="convertCurrency()">Dönüştür</button><div class="result" id="fxOut" aria-live="polite"></div>
+      <div class="live-status" id="fxStatus">Kurlar internetten yükleniyor…</div>
+      <div class="rate-list" id="fxRates"></div>
+    </section>
+    <section class="card" data-search="altın fiyatı gram altın ons çevirici canlı">
+      <h3>Altın fiyatı ve çevirici</h3><p class="desc">Gram ve ons altın için yaklaşık TL karşılığını hesapla.</p>
+      <label class="field"><span>Miktar (gram)</span><input id="goldGrams" type="number" min="0" value="1"></label>
+      <button class="action" onclick="convertGold()">Altın değerini hesapla</button><div class="result" id="goldOut" aria-live="polite"></div>
+      <div class="live-status" id="goldStatus">Altın verisi yükleniyor…</div>
+      <div class="rate-list" id="goldRates"></div>
+    </section>
+    <section class="card" data-search="kilo gram ağırlık dönüştürme ton">
+      <h3>Ağırlık dönüştürücü</h3><p class="desc">Kilogram, gram ve ton arasında dönüşüm yap.</p>
+      <label class="field"><span>Değer</span><input id="weightValue" type="number" placeholder="Örn. 2"></label>
+      <label class="field"><span>Başlangıç birimi</span><select id="weightFrom"><option value="kg">Kilogram</option><option value="g">Gram</option><option value="t">Ton</option></select></label>
+      <label class="field"><span>Hedef birim</span><select id="weightTo"><option value="g">Gram</option><option value="kg">Kilogram</option><option value="t">Ton</option></select></label>
+      <button class="action" onclick="convertWeight()">Dönüştür</button><div class="result" id="weightOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="vücut kitle indeksi bmi hesaplama">
+      <h3>Vücut kitle indeksi</h3><p class="desc">Boy ve kilo bilgileriyle VKİ değerini hesapla.</p>
+      <label class="field"><span>Boy (cm)</span><input id="bmiHeight" type="number" min="1" placeholder="Örn. 170"></label>
+      <label class="field"><span>Kilo (kg)</span><input id="bmiWeight" type="number" min="1" placeholder="Örn. 65"></label>
+      <button class="action" onclick="calcBMI()">Hesapla</button><div class="result" id="bmiOut" aria-live="polite"></div>
+    </section>
+    <section class="card" data-search="bahşiş hesaplama hesapla kişi başı bölüştür">
+      <h3>Hesabı bölüştür</h3><p class="desc">Toplam tutarı kişi sayısına göre paylaştır.</p>
+      <label class="field"><span>Toplam hesap (TL)</span><input id="billTotal" type="number" min="0" placeholder="Örn. 850"></label>
+      <label class="field"><span>Kişi sayısı</span><input id="billPeople" type="number" min="1" step="1" placeholder="Örn. 4"></label>
+      <button class="action" onclick="splitBill()">Kişi başı hesapla</button><div class="result" id="billOut" aria-live="polite"></div>
+    </section>
+  </div>
+  <div class="empty" id="empty">Bu aramayla eşleşen araç bulunamadı.</div>
+  <div class="adslot"><strong>Reklam alanı</strong>AdSense onayı aldıktan sonra reklam kodunu buraya ekleyebilirsin.</div>
+  <div class="note"><strong>Bilgilendirme:</strong> HesapMat araçları genel bilgilendirme içindir. Döviz ve altın verileri üçüncü taraf kaynaklardan alınan yaklaşık referans fiyatlarıdır; banka, kuyumcu, alış-satış makası, vergi ve komisyonları yansıtmayabilir. İşlem yapmadan önce bankanızın veya kuyumcunuzun fiyatını kontrol edin. VKİ aracı tıbbi tanı koymaz.</div>
+</main>
+<footer>© <span id="year"></span> HesapMat • Hakkımızda • İletişim • Gizlilik Politikası</footer>
+<script>
+const fmt=n=>new Intl.NumberFormat('tr-TR',{maximumFractionDigits:2}).format(n);
+function show(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.add('show')}
+function val(id){return Number(document.getElementById(id).value)}
+function validFinite(...nums){return nums.every(Number.isFinite)}
+function calcPercent(){let n=val('pctNum'),r=val('pctRate');if(!validFinite(n,r)||document.getElementById('pctNum').value===''||document.getElementById('pctRate').value==='')return show('pctOut','Lütfen iki alanı da doldur.');show('pctOut',`${fmt(n)} sayısının %${fmt(r)}’i = ${fmt(n*r/100)}`)}
+function calcDiscount(){let p=val('discPrice'),r=val('discRate');if(!validFinite(p,r)||p<0||r<0||r>100||document.getElementById('discPrice').value===''||document.getElementById('discRate').value==='')return show('discOut','Geçerli bir fiyat ve %0–100 arasında indirim gir.');let d=p*r/100;show('discOut',`İndirim: ${fmt(d)} TL · Ödenecek: ${fmt(p-d)} TL`)}
+function calcAge(){let s=document.getElementById('birthDate').value;if(!s)return show('ageOut','Lütfen doğum tarihini seç.');let b=new Date(s+'T00:00:00'),t=new Date();if(b>t)return show('ageOut','Doğum tarihi gelecekte olamaz.');let y=t.getFullYear()-b.getFullYear(),m=t.getMonth()-b.getMonth(),d=t.getDate()-b.getDate();if(d<0){m--;d+=new Date(t.getFullYear(),t.getMonth(),0).getDate()}if(m<0){y--;m+=12}show('ageOut',`${y} yıl, ${m} ay, ${d} gün`)}
+function calcAverage(){let raw=document.getElementById('grades').value.trim();if(!raw)return show('avgOut','Lütfen notlarını gir.');let a=raw.split(/[;, ]+/).filter(Boolean).map(x=>Number(x.replace(',','.')));if(!a.length||!validFinite(...a)||a.some(x=>x<0||x>100))return show('avgOut','0 ile 100 arasında geçerli notlar gir.');show('avgOut',`Not adedi: ${a.length} · Ortalama: ${fmt(a.reduce((x,y)=>x+y,0)/a.length)}`)}
+function calcVat(){let p=val('vatPrice'),r=val('vatRate');if(!Number.isFinite(p)||p<0||document.getElementById('vatPrice').value==='')return show('vatOut','Geçerli bir tutar gir.');let tax=p*r/100;show('vatOut',`KDV: ${fmt(tax)} TL · KDV dâhil: ${fmt(p+tax)} TL`)}
+function convertLength(){let v=val('lenValue'),f=document.getElementById('lenFrom').value,t=document.getElementById('lenTo').value;if(!Number.isFinite(v)||document.getElementById('lenValue').value==='')return show('lenOut','Lütfen geçerli bir değer gir.');let meters={km:1000,m:1,cm:.01};show('lenOut',`${fmt(v)} ${f} = ${fmt(v*meters[f]/meters[t])} ${t}`)}
+function filterTools(){let q=document.getElementById('search').value.toLocaleLowerCase('tr').trim(),cards=[...document.querySelectorAll('.card[data-search]')];let count=0;cards.forEach(c=>{let ok=(c.dataset.search+' '+c.innerText).toLocaleLowerCase('tr').includes(q);c.style.display=ok?'':'none';if(ok)count++});document.getElementById('empty').style.display=count?'none':'block'}
+document.getElementById('search').addEventListener('input',filterTools);document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Enter')filterTools()});
+function convertWeight(){let v=val('weightValue'),f=document.getElementById('weightFrom').value,t=document.getElementById('weightTo').value;if(!Number.isFinite(v)||document.getElementById('weightValue').value==='')return show('weightOut','Geçerli bir değer gir.');let g={kg:1000,g:1,t:1000000};show('weightOut',`${fmt(v)} ${f} = ${fmt(v*g[f]/g[t])} ${t}`)}
+function calcBMI(){let h=val('bmiHeight'),w=val('bmiWeight');if(!Number.isFinite(h)||!Number.isFinite(w)||h<=0||w<=0||!document.getElementById('bmiHeight').value||!document.getElementById('bmiWeight').value)return show('bmiOut','Geçerli boy ve kilo gir.');let bmi=w/((h/100)**2);show('bmiOut',`VKİ: ${fmt(bmi)}. Bu değer tek başına sağlık değerlendirmesi veya tanı değildir.`)}
+function splitBill(){let t=val('billTotal'),n=val('billPeople');if(!Number.isFinite(t)||!Number.isInteger(n)||t<0||n<1||!document.getElementById('billTotal').value||!document.getElementById('billPeople').value)return show('billOut','Geçerli tutar ve kişi sayısı gir.');show('billOut',`Kişi başı: ${fmt(t/n)} TL`)}
+let fxRates=null,fxUpdated=null,goldTryPerGram=null;
+async function loadFx(){const status=document.getElementById('fxStatus');try{const r=await fetch('https://open.er-api.com/v6/latest/USD');if(!r.ok)throw Error('Kur servisine ulaşılamadı');const data=await r.json();if(data.result!=='success'||!data.rates)throw Error('Kur verisi alınamadı');fxRates=data.rates;fxUpdated=data.time_last_update_utc||new Date().toISOString();status.textContent='Son güncelleme: '+new Date(data.time_last_update_utc).toLocaleString('tr-TR')+' · Referans kur';renderFxRates();convertCurrency()}catch(e){status.textContent='Canlı kur alınamadı. İnternet bağlantını kontrol edip sayfayı yenile.'}}
+function convertCurrency(){let amount=val('fxAmount'),from=document.getElementById('fxFrom').value,to=document.getElementById('fxTo').value;if(!Number.isFinite(amount)||amount<0||!document.getElementById('fxAmount').value)return show('fxOut','Geçerli bir tutar gir.');if(!fxRates)return show('fxOut','Döviz kurları henüz yüklenmedi.');if(!fxRates[from]||!fxRates[to])return show('fxOut','Bu para birimi için kur bulunamadı.');let result=amount/fxRates[from]*fxRates[to];show('fxOut',`${fmt(amount)} ${from} ≈ ${fmt(result)} ${to}`)}
+function renderFxRates(){if(!fxRates)return;let pairs=[['USD','TRY'],['EUR','TRY'],['GBP','TRY']];document.getElementById('fxRates').innerHTML=pairs.map(([a,b])=>`<div class="rate-pill">${a}/${b}<b>${fmt(fxRates[b]/fxRates[a])} ${b}</b></div>`).join('')}
+async function loadGold(){const status=document.getElementById('goldStatus');try{const r=await fetch('https://api.gold-api.com/price/XAU');if(!r.ok)throw Error('Altın servisine ulaşılamadı');const d=await r.json();let usdPerOz=Number(d.price);if(!Number.isFinite(usdPerOz)||usdPerOz<=0)throw Error('Altın fiyatı geçersiz');if(!fxRates)await loadFx();if(!fxRates||!fxRates.TRY)throw Error('Döviz kuru bulunamadı');goldTryPerGram=usdPerOz/31.1034768*fxRates.TRY;status.textContent='Yaklaşık spot fiyat · Kaynak güncellemesine bağlı';renderGold();convertGold()}catch(e){status.textContent='Canlı altın verisi alınamadı. Daha sonra tekrar deneyebilirsin.'}}
+function renderGold(){if(goldTryPerGram===null)return;document.getElementById('goldRates').innerHTML=`<div class="rate-pill">Gram altın (yaklaşık)<b>${fmt(goldTryPerGram)} TL</b></div><div class="rate-pill">Ons altın (yaklaşık)<b>${fmt(goldTryPerGram*31.1034768)} TL</b></div>`}
+function convertGold(){let g=val('goldGrams');if(!Number.isFinite(g)||g<0||!document.getElementById('goldGrams').value)return show('goldOut','Geçerli gram miktarı gir.');if(goldTryPerGram===null)return show('goldOut','Altın fiyatı henüz yüklenmedi.');show('goldOut',`${fmt(g)} gram ≈ ${fmt(g*goldTryPerGram)} TL (yaklaşık spot değer)`)}
+
+document.getElementById('year').textContent=new Date().getFullYear();
+loadFx();loadGold();
+</script>
+</body>
+</html>
